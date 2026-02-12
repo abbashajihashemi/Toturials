@@ -1,0 +1,6 @@
+@MultiThread_HostAddress = http://localhost:5209
+
+GET {{MultiThread_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
