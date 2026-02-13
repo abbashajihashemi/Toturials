@@ -1,11 +1,19 @@
+using MultiThread.Configurations;
+using MultiThread.ExceptionHandlers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddLoggerAdapter();
 
+builder.Services.AddExceptionHandlers();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCustomRequestTimeouts(builder.Configuration);
 
 var app = builder.Build();
 
@@ -15,6 +23,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCustomExceptionHandlers();
+app.UseRequestTimeouts();
 
 app.UseAuthorization();
 
